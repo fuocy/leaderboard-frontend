@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import CreatorDashboard from "./pages/CreatorDashboard";
+import PlayerDashboard from "./pages/PlayerDashboard";
+import NotFound from "./pages/NotFound";
+import LoginPage from "./pages/LoginPage";
+import { Route, Routes } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<LoginPage />} />
+      <Route
+        path="/creator-dashboard"
+        element={
+          <ProtectedRoute element={<CreatorDashboard />} role="creator" />
+        }
+      />
+      <Route
+        path="/player-dashboard"
+        element={<ProtectedRoute element={<PlayerDashboard />} role="player" />}
+      />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
-}
+};
 
 export default App;
